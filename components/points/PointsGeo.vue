@@ -27,8 +27,8 @@ export default {
     GameUi() {
       // Texture Loader
       const loader = new THREE.TextureLoader();
-      const cross = loader.load("./models/fbx/cross0.png");
-      const stars = loader.load("./models/fbx/cross1.png");
+      const cross = loader.load(require("@/assets/cross0.png"));
+      const stars = loader.load(require("@/assets/cross1.png"));
       // const stars = loader.load ('./star.svg');
 
       //-----------------------------------------------------
