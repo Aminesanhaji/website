@@ -108,10 +108,8 @@
           >.<br />
         </p>
         <p class="mt-3 text-gray-600">
-          6- Test de BG effect
-          <a
-            href="/background"
-            class="button--doc text-green-500 hover:underline"
+          6- Test de Background effects
+          <a href="/points" class="button--doc text-green-500 hover:underline"
             >Right here</a
           >, A voir ..<br />
         </p>
