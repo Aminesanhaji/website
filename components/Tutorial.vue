@@ -18,9 +18,8 @@
             <a href="/scroll">Scroll</a>
           </div>
           <p class="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-            exercitationem praesentium nihil.
+            Animation d'un modèle ( cube ici) quand on scroll. changement de
+            mouvement, texte et ground position.
           </p>
         </div>
         <div class="px-6 pt-4 pb-2">
@@ -51,9 +50,8 @@
             <a href="/points">Espace 1</a>
           </div>
           <p class="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-            exercitationem praesentium nihil.
+            Un modèle flottant dans l'espace en background avec des étoiles
+            custo.
           </p>
         </div>
         <div class="px-6 pt-4 pb-2">
@@ -84,9 +82,8 @@
             <a href="/3d">Model 3D</a>
           </div>
           <p class="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-            exercitationem praesentium nihil.
+            Un modèle 3D en format FBX, avec une animation custom. Caméra en
+            mode Orbit.
           </p>
         </div>
         <div class="px-6 pt-4 pb-2">
