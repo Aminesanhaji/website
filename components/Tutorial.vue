@@ -6,11 +6,13 @@
     >
       <!--Card 1-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img
-          class="w-full"
-          src="@/assets/screenshots/scroll.png"
-          alt="Mountain"
-        />
+        <a href="/scroll">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/scroll.png"
+            alt="Mountain"
+          />
+        </a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/scroll">Scroll</a>
@@ -38,11 +40,12 @@
       </div>
       <!--Card 2-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img
-          class="w-full"
-          src="@/assets/screenshots/space.png"
-          alt="Mountain"
-        />
+        <a href="/points">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/space.png"
+            alt="Mountain"
+        /></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/points">Espace 1</a>
@@ -70,11 +73,12 @@
       </div>
       <!--Card 3-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img
-          class="w-full"
-          src="@/assets/screenshots/model.png"
-          alt="Mountain"
-        />
+        <a href="/3d">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/model.png"
+            alt="Mountain"
+        /></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/3d">Model 3D</a>
@@ -102,11 +106,12 @@
       </div>
       <!--Card 4-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img
-          class="w-full"
-          src="@/assets/screenshots/sprite.png"
-          alt="Mountain"
-        />
+        <a href="/formesgeom">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/sprite.png"
+            alt="Mountain"
+        /></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/formesgeom">Model 2</a>
@@ -134,7 +139,9 @@
       </div>
       <!--Card 5-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img class="w-full" src="@/assets/screenshots/bg.png" alt="Mountain" />
+        <a href="/bganimation"
+          ><img class="w-full" src="@/assets/screenshots/bg.png" alt="Mountain"
+        /></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/bganimation">Background animations</a>
@@ -162,11 +169,12 @@
       </div>
       <!--Card 6-->
       <div class="rounded overflow-hidden shadow-lg">
-        <img
-          class="w-full"
-          src="@/assets/screenshots/youtube.png"
-          alt="Mountain"
-        />
+        <a href="/youtubecube">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/youtube.png"
+            alt="Mountain"
+        /></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl text-black mb-2">
             <a href="/youtubecube">Cube vidéos</a>
