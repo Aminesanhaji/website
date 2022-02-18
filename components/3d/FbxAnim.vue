@@ -80,7 +80,7 @@ export default {
 
       const loader = new FBXLoader(manager);
       // const path = require("./models/fbx/Walking.fbx");
-      loader.load("./models/fbx/Waving.fbx", function (object) {
+      loader.load("/models/fbx/Waving.fbx", function (object) {
         mixer = new THREE.AnimationMixer(object);
 
         const action = mixer.clipAction(object.animations[0]);
