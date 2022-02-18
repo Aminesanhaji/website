@@ -35,7 +35,7 @@ export default {
 
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0xa0a0a0);
-      scene.fog = new THREE.Fog(0xffffff, 200, 1000);
+      scene.fog = new THREE.Fog(0xffffff, 2, 1000);
 
       const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff);
       hemiLight.position.set(10, 200, 10);
@@ -51,10 +51,12 @@ export default {
       scene.add(dirLight);
 
       // scene.add(new THREE.CameraHelper(dirLight.shadow.camera));
-
+      const tloader = new THREE.TextureLoader();
+      const grass = tloader.load(require("@/assets/grass.jpg"));
       // ground
       var groundMaterial = new THREE.MeshToonMaterial({
-        color: 0x000000,
+        // color: 0x000000,
+        map: grass,
       });
       var geometry = new THREE.CylinderGeometry(100, 100, 5, 20);
       var mesh = new THREE.Mesh(geometry, groundMaterial);
@@ -77,7 +79,8 @@ export default {
       manager.addHandler(/\.tga$/i, new TGALoader());
 
       const loader = new FBXLoader(manager);
-      loader.load("./models/fbx/Walking.fbx", function (object) {
+      // const path = require("./models/fbx/Walking.fbx");
+      loader.load("./models/fbx/Waving.fbx", function (object) {
         mixer = new THREE.AnimationMixer(object);
 
         const action = mixer.clipAction(object.animations[0]);

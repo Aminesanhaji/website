@@ -3,7 +3,7 @@
     <div class="container">
       <div class="content">
         <h1>WINWIN <br />THE NEXT DIMENSION</h1>
-        <p>Ici le coeur est grand comme l'égo <br />"Amine le BG"</p>
+        <p>Ici le coeur est grand comme l'égo <br />"Napo"</p>
       </div>
     </div>
     <canvas class="webgl"></canvas>
@@ -618,7 +618,7 @@ body {
 
 h1 {
   font-size: 4em;
-  width: 50vw;
+  /* width: 50vw; */
   line-height: 97%;
   text-align: right;
 }
