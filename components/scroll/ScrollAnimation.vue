@@ -27,6 +27,7 @@
         <p>Scroll en haut pour inverser l'animation</p>
       </section>
     </main>
+    <canvas class="Scrolly"></canvas>
   </body>
 </template>
 
@@ -44,7 +45,9 @@ export default {
       0.1,
       1000
     );
-    var renderer = new THREE.WebGLRenderer();
+    // Canvas
+    const canvas = document.querySelector("canvas.Scrolly");
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     var geometry = new THREE.BoxGeometry();
@@ -178,7 +181,7 @@ body {
   color: white;
 }
 
-canvas {
+.Scrolly {
   position: fixed;
   top: 0;
   left: 0;

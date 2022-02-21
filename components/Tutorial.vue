@@ -230,6 +230,36 @@
           >
         </div>
       </div>
+      <!--Card 6-->
+      <div class="rounded overflow-hidden shadow-lg">
+        <a href="/map">
+          <img class="w-full" src="@/assets/screenshots/map.png" alt="Mountain"
+        /></a>
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl text-black mb-2">
+            <a href="/map">Game map</a>
+          </div>
+          <p class="text-gray-700 text-base">
+            Une carte avec des objets random (pour le moment) ou on avance avec
+            les touches QZDS et on tourne la caméra en utilisant la souris.
+            (améliorations en cours)
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#3D</span
+          >
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#Threejs</span
+          >
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#Test</span
+          >
+        </div>
+      </div>
     </div>
   </body>
 </template>
