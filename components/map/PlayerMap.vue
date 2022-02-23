@@ -16,8 +16,10 @@
 
 <script>
 import * as THREE from "three";
-
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import { TGALoader } from "three/examples/jsm/loaders/TGALoader.js";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
+import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export default {
   mounted() {
@@ -190,50 +192,29 @@ export default {
       const floor = new THREE.Mesh(floorGeometry, floorMaterial);
       scene.add(floor);
 
-      // objects
+      // FBX 3D
+      const manager = new THREE.LoadingManager();
+      manager.addHandler(/\.tga$/i, new TGALoader());
 
-      const boxGeometry = new THREE.ConeGeometry(5, 20, 32).toNonIndexed();
-
-      position = boxGeometry.attributes.position;
-      const colorsBox = [];
-
-      for (let i = 0, l = position.count; i < l; i++) {
-        color.setHSL(
-          Math.random() * 0.3 + 0.5,
-          0.75,
-          Math.random() * 0.25 + 0.75
-        );
-        colorsBox.push(color.r, color.g, color.b);
-      }
-
-      boxGeometry.setAttribute(
-        "color",
-        new THREE.Float32BufferAttribute(colorsBox, 3)
-      );
-
-      for (let i = 0; i < 500; i++) {
-        const boxMaterial = new THREE.MeshPhongMaterial({
-          specular: 0xffffff,
-          // map: bricks,
-          // alphaMaps: 0xffffff,
-          reflectivity: 1,
-          flatShading: true,
-          vertexColors: true,
+      const loader = new FBXLoader(manager);
+      loader.load("/models/fbx/tree.fbx", function (object) {
+        object.scale.multiplyScalar(0.08);
+        object.traverse(function (child) {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
         });
-        boxMaterial.color.setHSL(
-          Math.random() * 0.2 + 0.5,
-          0.75,
-          Math.random() * 0.25 + 0.75
-        );
+        const model1 = SkeletonUtils.clone(object);
+        // const model2 = SkeletonUtils.clone(object);
+        // const model3 = SkeletonUtils.clone(object);
 
-        const box = new THREE.Mesh(boxGeometry, boxMaterial);
-        box.position.x = Math.floor(Math.random() * 20 - 10) * 20;
-        box.position.y = Math.floor(Math.random() * 20) * 20 + 10;
-        box.position.z = Math.floor(Math.random() * 20 - 10) * 20;
+        model1.position.x = Math.floor(Math.random() * 20 - 10) * 20;
+        // model2.position.x = Math.floor(Math.random() * 20 - 10) * 20;
+        // model3.position.x = Math.floor(Math.random() * 20 - 10) * 20;
 
-        scene.add(box);
-        objects.push(box);
-      }
+        scene.add(model1);
+      });
 
       //
       // Canvas
@@ -333,9 +314,5 @@ export default {
   text-align: center;
   font-size: 14px;
   cursor: pointer;
-}
-canvas {
-  top: 0;
-  left: 0;
 }
 </style>
