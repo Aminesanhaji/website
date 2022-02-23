@@ -167,6 +167,39 @@
           >
         </div>
       </div>
+      <!--Card 7-->
+      <div class="rounded overflow-hidden shadow-lg">
+        <a href="/text">
+          <img
+            class="w-full"
+            src="@/assets/screenshots/text.png"
+            alt="Mountain"
+        /></a>
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl text-black mb-2">
+            <a href="/text">Effet Texte</a>
+          </div>
+          <p class="text-gray-700 text-base">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Voluptatibus quia, Nonea! Maiores et perferendis eaque,
+            exercitationem praesentium nihil.
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#3D</span
+          >
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#Threejs</span
+          >
+          <span
+            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            >#Test</span
+          >
+        </div>
+      </div>
       <!--Card 5-->
       <div class="rounded overflow-hidden shadow-lg">
         <a href="/bganimation"
@@ -230,6 +263,7 @@
           >
         </div>
       </div>
+
       <!--Card 6-->
       <div class="rounded overflow-hidden shadow-lg">
         <a href="/map">

@@ -3,30 +3,10 @@
     <div id="magic"></div>
     <div class="playground">
       <div class="bottomPosition">
-        <a href="#" target="_blank"
-          ><svg
-            class="logo"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 278.8 278.8"
-          >
-            <circle fill="#000205" cx="139.4" cy="139.4" r="139.4" />
-            <g
-              fill="none"
-              stroke="#FFF"
-              stroke-width="6.062"
-              stroke-miterlimit="10"
-            >
-              <path
-                d="M214 183.4l-74.6 43.1-75.5-43.6V95.8l75.5-43.5 75.4 43.5v59.8l-11.3 6.5z"
-              />
-              <path
-                d="M139.4 226.5l-18.8-38.2 18.8 10.8 75.4-43.5M63.9 95.8l75.3 43.6 75.6-43.6M139.2 139.4v59.7"
-              />
-            </g></svg
-        ></a>
         <h1 class="special">
           Agence winwin <br /><span class="minText"
-            >Creative developer && digital designer.</span
+            >Avec le talent, on fait ce qu'on veut. Avec le génie, on fait ce
+            qu'on peut.</span
           >
         </h1>
       </div>
@@ -150,7 +130,7 @@ export default {
         this.buttom = false;
 
         this.data = {
-          text: "FUTURE\nIS NOW",
+          text: "ALLEZ\nL'OM",
           amount: 1500,
           particleSize: 1,
           particleColor: 0xffffff,
