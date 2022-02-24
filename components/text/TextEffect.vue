@@ -1,5 +1,34 @@
 <template>
   <body>
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+      attribute float size;
+      attribute vec3 customColor;
+      varying vec3 vColor;
+
+      void main() {
+
+        vColor = customColor;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_PointSize = size * ( 300.0 / -mvPosition.z );
+        gl_Position = projectionMatrix * mvPosition;
+
+      }
+    </script>
+    <script type="x-shader/x-fragment" id="fragmentshader">
+
+      uniform vec3 color;
+      uniform sampler2D pointTexture;
+
+      varying vec3 vColor;
+
+      void main() {
+
+        gl_FragColor = vec4( color * vColor, 1.0 );
+        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+      }
+    </script>
     <div id="magic"></div>
     <div class="playground">
       <div class="bottomPosition">
@@ -327,22 +356,22 @@ export default {
         }
       }
 
-      vertexshader() {
-        return `
-              attribute float size;
-              attribute vec3 customColor;
-              varying vec3 vColor;
+      // vertexshader() {
+      //   return `
+      //         attribute float size;
+      //         attribute vec3 customColor;
+      //         varying vec3 vColor;
 
-              void main() {
+      //         void main() {
 
-                vColor = customColor;
-                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                gl_PointSize = size * ( 300.0 / -mvPosition.z );
-                gl_Position = projectionMatrix * mvPosition;
+      //           vColor = customColor;
+      //           vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      //           gl_PointSize = size * ( 300.0 / -mvPosition.z );
+      //           gl_Position = projectionMatrix * mvPosition;
 
-                  }
-              `;
-      }
+      //             }
+      //         `;
+      // }
       // fragmentshader() {
       //   return `
       //           uniform vec3 color;
@@ -417,10 +446,26 @@ export default {
           "customColor",
           new THREE.Float32BufferAttribute(colors, 3)
         );
+
         geoParticles.setAttribute(
           "size",
           new THREE.Float32BufferAttribute(sizes, 1)
         );
+
+        // const vertexshader = `
+        //       attribute float size;
+        //       attribute vec3 customColor;
+        //       varying vec3 vColor;
+
+        //       void main() {
+
+        //         vColor = customColor;
+        //         vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        //         gl_PointSize = size * ( 300.0 / -mvPosition.z );
+        //         gl_Position = projectionMatrix * mvPosition;
+
+        //           }
+        //       `;
 
         const material = new THREE.ShaderMaterial({
           uniforms: {
@@ -428,34 +473,34 @@ export default {
             pointTexture: { value: this.particleImg },
           },
 
-          vertexShader: this.vertexshader(),
-          // fragmentShader: shader.fragmentShader,
+          vertexShader: document.getElementById("vertexshader").textContent,
+          fragmentShader: document.getElementById("fragmentshader").textContent,
 
           blending: THREE.AdditiveBlending,
           depthTest: false,
           transparent: true,
         });
-        material.onBeforeCompile = (shader) => {
-          (shader.uniforms.color = { value: new THREE.Color(0xffffff) }),
-            (shader.uniforms.pointTexture = { value: this.particleImg }),
-            (shader.fragmentShader =
-              `
-              uniform vec3 color;
-              uniform sampler2D pointTexture;
-            ` + shader.fragmentShader);
-          shader.fragmentShader = shader.fragmentShader.replace(
-            `varying vec3 vColor;
+        // material.onBeforeCompile = (shader) => {
+        //   (shader.uniforms.color = { value: new THREE.Color(0xffffff) }),
+        //     (shader.uniforms.pointTexture = { value: this.particleImg }),
+        //     (shader.fragmentShader =
+        //       `
+        //       uniform vec3 color;
+        //       uniform sampler2D pointTexture;
+        //     ` + shader.fragmentShader);
+        //   shader.fragmentShader = shader.fragmentShader.replace(
+        //     `varying vec3 vColor;
 
-                    void main() {
+        //             void main() {
 
-                      gl_FragColor = vec4( color * vColor, 1.0 );
-                      gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+        //               gl_FragColor = vec4( color * vColor, 1.0 );
+        //               gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
 
-                    }
-              
-              `
-          );
-        };
+        //             }
+
+        //       `
+        //   );
+        // };
 
         this.particles = new THREE.Points(geoParticles, material);
         this.scene.add(this.particles);
