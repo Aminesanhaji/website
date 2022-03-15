@@ -4,7 +4,8 @@
       <div class="w-1/2 flex flex-col justify-center px-8">
         <div class="core mx-auto">
           <h1 class="text-white text-6xl mb-8 font-exo leading-none">
-            AMINE SANHAJI, PORTFOLIO EFFETS SYMPA THREEJS
+            <span class="text-blue-400">AMINE SANHAJI</span>, PORTFOLIO EFFETS
+            SYMPA THREEJS
           </h1>
           <p class="text-gray-400 mb-8 font-exa text-2xl">
             Dans le cadre d'une montée en compétence en Threejs, voici quelques
