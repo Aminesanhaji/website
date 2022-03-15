@@ -1,9 +1,13 @@
 <template>
-  <Tutorial/>
+  <MyLanding />
 </template>
 
 <script>
+import MyLanding from "@/components/landing/MyLanding";
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+  components: {
+    MyLanding,
+  },
+};
 </script>
