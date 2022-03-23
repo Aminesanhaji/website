@@ -16,9 +16,6 @@
 <script>
 import * as THREE from "three";
 import gsap from "gsap";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import { TGALoader } from "three/examples/jsm/loaders/TGALoader.js";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 export default {
   mounted() {
@@ -29,13 +26,13 @@ export default {
     const loader = new THREE.TextureLoader();
     const cross = loader.load(require("@/assets/cross0.png"));
     const stars = loader.load(require("@/assets/cross1.png"));
+
     // Canvas
     const canvas = document.querySelector("canvas.webgll");
 
     // Scene
     const scene = new THREE.Scene();
 
-    //colors
     // colors
     let colorsArray = [
       "63b598",
@@ -336,23 +333,30 @@ export default {
     const material = new THREE.PointsMaterial({
       color: colour,
       size: 0.1,
-      map: stars,
+      // map: stars,
       transparent: true,
       rotation: 2,
     });
 
-    //-----------------
+    // OBJ model
+
     const obj = new OBJLoader();
-    obj.load("/models/fbx/temple.obj", function (object) {
-      let material = new THREE.PointsMaterial({ color: colour, size: 0.025 });
+    obj.load("/models/fbx/globe2.obj", function (object) {
+      let material = new THREE.PointsMaterial({
+        color: colour,
+        size: 0.035,
+        map: cross,
+      });
       let mesh = new THREE.Points(object.children[0].geometry, material);
 
-      mesh.scale.multiplyScalar(0.07);
-      mesh.position.x = objectsDistance * 0.3;
+      mesh.scale.multiplyScalar(0.025);
+      // mesh.rotation.y = 2 * Math.PI * Math.random();
+      mesh.position.x = objectsDistance * 0.5;
       mesh.position.y = -objectsDistance * 0.2;
       scene.add(mesh);
     });
     //----------------------
+
     // Meshes
     const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material);
     const mesh3 = new THREE.Points(
@@ -365,8 +369,8 @@ export default {
     mesh3.position.y = -objectsDistance * 2;
 
     // mesh1.position.x = 2;
-    mesh2.position.x = -2;
-    mesh3.position.x = 2;
+    mesh2.position.x = -4;
+    mesh3.position.x = 3;
 
     const sectionMeshes = [mesh2, mesh3];
 
@@ -376,7 +380,7 @@ export default {
      * Particles
      */
     // Geometry
-    const particlesCount = 200;
+    const particlesCount = 1000;
     const positions = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount; i++) {
@@ -395,10 +399,11 @@ export default {
 
     // Material
     const particlesMaterial = new THREE.PointsMaterial({
-      color: "#ffeded",
+      color: "#c0a43c",
       sizeAttenuation: true,
-      size: 0.03,
+      size: 0.2,
       transparent: true,
+      map: cross,
     });
 
     // Points
@@ -406,55 +411,55 @@ export default {
     scene.add(particles);
 
     //   // Interaction
-    //   var uniforms = {
-    //     mouse: {
-    //       value: new THREE.Vector3(),
-    //     },
-    //     radius: {
-    //       value: 1.5,
-    //     },
-    //   };
+    var uniforms = {
+      mouse: {
+        value: new THREE.Vector3(),
+      },
+      radius: {
+        value: 0.5,
+      },
+    };
 
-    //   material.onBeforeCompile = (shader) => {
-    //     shader.uniforms.mouse = uniforms.mouse;
-    //     shader.uniforms.radius = uniforms.radius;
-    //     //console.log(shader.vertexShader);
-    //     shader.vertexShader =
-    //       `
-    // 	uniform vec3 mouse;
-    //   uniform float radius;
-    // ` + shader.vertexShader;
-    //     shader.vertexShader = shader.vertexShader.replace(
-    //       `#include <begin_vertex>`,
-    //       `#include <begin_vertex>
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.mouse = uniforms.mouse;
+      shader.uniforms.radius = uniforms.radius;
+      // console.log(shader.vertexShader);
+      shader.vertexShader =
+        `
+    	uniform vec3 mouse;
+      uniform float radius;
+    ` + shader.vertexShader;
+      shader.vertexShader = shader.vertexShader.replace(
+        `#include <begin_vertex>`,
+        `#include <begin_vertex>
 
-    //     vec3 dir = transformed - mouse;
+        vec3 dir = transformed - mouse;
 
-    //     float dist = length(dir);
+        float dist = length(dir);
 
-    //     if (dist < radius){
-    //       float ratio = 1. - dist / radius;
+        if (dist < radius){
+          float ratio = 1. - dist / radius;
 
-    //       vec3 shift = dir * 2. * (ratio * ratio);
+          vec3 shift = dir * 2. * (ratio * ratio);
 
-    //       transformed += shift;
-    //     }
+          transformed += shift;
+        }
 
-    //   `
-    //     );
-    //   };
+      `
+      );
+    };
 
-    //   var plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-    //   var raycaster = new THREE.Raycaster();
-    //   var mouse = new THREE.Vector2();
-    //   window.addEventListener("mousemove", (event) => {
-    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    var plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    window.addEventListener("mousemove", (event) => {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    //     raycaster.setFromCamera(mouse, camera);
+      raycaster.setFromCamera(mouse, camera);
 
-    //     raycaster.ray.intersectPlane(plane, uniforms.mouse.value);
-    //   });
+      raycaster.ray.intersectPlane(plane, uniforms.mouse.value);
+    });
 
     /**
      * Lights
@@ -533,7 +538,7 @@ export default {
       0.1,
       100
     );
-    camera.position.z = 6;
+    camera.position.z = 9;
     cameraGroup.add(camera);
 
     /**
@@ -556,6 +561,8 @@ export default {
       const elapsedTime = clock.getElapsedTime();
       const deltaTime = elapsedTime - previousTime;
       previousTime = elapsedTime;
+
+      // nejma.update(elapsedTime * 1000000);
 
       // Animate meshes
       for (const mesh of sectionMeshes) {
@@ -593,7 +600,7 @@ export default {
 }
 
 .mainn {
-  background: #1e1a20;
+  background: #100f11;
 }
 
 .webgll {
@@ -614,6 +621,12 @@ export default {
   padding-left: 10%;
   padding-right: 10%;
   will-change: transform;
+}
+
+.art {
+  font-family: "Cabin", sans-serif;
+  font-size: 20px;
+  width: 350px;
 }
 
 section:nth-child(odd) {
