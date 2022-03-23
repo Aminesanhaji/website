@@ -16,6 +16,10 @@
 <script>
 import * as THREE from "three";
 import gsap from "gsap";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import { TGALoader } from "three/examples/jsm/loaders/TGALoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 export default {
   mounted() {
     /**
@@ -337,28 +341,36 @@ export default {
       rotation: 2,
     });
 
+    //-----------------
+    const obj = new OBJLoader();
+    obj.load("/models/fbx/temple.obj", function (object) {
+      let material = new THREE.PointsMaterial({ color: colour, size: 0.025 });
+      let mesh = new THREE.Points(object.children[0].geometry, material);
+
+      mesh.scale.multiplyScalar(0.07);
+      mesh.position.x = objectsDistance * 0.3;
+      mesh.position.y = -objectsDistance * 0.2;
+      scene.add(mesh);
+    });
+    //----------------------
     // Meshes
-    const mesh1 = new THREE.Points(
-      new THREE.TorusGeometry(1, 0.4, 16, 60),
-      material
-    );
     const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material);
     const mesh3 = new THREE.Points(
       new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16),
       material
     );
 
-    mesh1.position.y = -objectsDistance * 0;
+    // mesh1.position.y = -objectsDistance * 0;
     mesh2.position.y = -objectsDistance * 1;
     mesh3.position.y = -objectsDistance * 2;
 
-    mesh1.position.x = 2;
+    // mesh1.position.x = 2;
     mesh2.position.x = -2;
     mesh3.position.x = 2;
 
-    const sectionMeshes = [mesh1, mesh2, mesh3];
+    const sectionMeshes = [mesh2, mesh3];
 
-    scene.add(mesh1, mesh2, mesh3);
+    scene.add(mesh2, mesh3);
 
     /**
      * Particles
