@@ -1,16 +1,18 @@
 <template>
-  <div class="mainn">
-    <canvas class="webgll"></canvas>
-    <section class="section">
-      <h1>My Portfolio</h1>
-    </section>
-    <section class="section">
-      <h2>My projects</h2>
-    </section>
-    <section class="section">
-      <h2>Contact me</h2>
-    </section>
-  </div>
+  <body>
+    <div class="mainn">
+      <canvas class="webgll"></canvas>
+      <section class="section">
+        <h1>My Portfolio</h1>
+      </section>
+      <section class="section">
+        <h2>My projects</h2>
+      </section>
+      <section class="section">
+        <h2>Contact me</h2>
+      </section>
+    </div>
+  </body>
 </template>
 
 <script>
@@ -25,7 +27,7 @@ export default {
 
     const loader = new THREE.TextureLoader();
     const cross = loader.load(require("@/assets/cross0.png"));
-    const stars = loader.load(require("@/assets/cross1.png"));
+    const stars = loader.load(require("@/assets/star3.png"));
 
     // Canvas
     const canvas = document.querySelector("canvas.webgll");
@@ -331,7 +333,7 @@ export default {
 
     // Material
     const material = new THREE.PointsMaterial({
-      color: colour,
+      // color: colour,
       size: 0.1,
       // map: stars,
       transparent: true,
@@ -350,37 +352,54 @@ export default {
       let mesh = new THREE.Points(object.children[0].geometry, material);
 
       mesh.scale.multiplyScalar(0.025);
-      // mesh.rotation.y = 2 * Math.PI * Math.random();
+      mesh.rotation.y = 2 * Math.PI * 0.7;
       mesh.position.x = objectsDistance * 0.5;
       mesh.position.y = -objectsDistance * 0.2;
       scene.add(mesh);
+      console.log("globe" + mesh);
+    });
+    obj.load("/models/fbx/temple.obj", function (object) {
+      let material = new THREE.PointsMaterial({
+        color: colour,
+        size: 0.019,
+        // map: cross,
+        transparent: true,
+      });
+      let mesh2 = new THREE.Points(object.children[0].geometry, material);
+
+      mesh2.scale.multiplyScalar(0.1);
+      mesh2.rotation.y = 2 * Math.PI * 0.7;
+      mesh2.position.x = objectsDistance * -1;
+      mesh2.position.y = -objectsDistance * 1.7;
+      scene.add(mesh2);
+      console.log("temple" + mesh2);
     });
     //----------------------
 
     // Meshes
-    const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material);
+    // const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material);
     const mesh3 = new THREE.Points(
       new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16),
       material
     );
 
     // mesh1.position.y = -objectsDistance * 0;
-    mesh2.position.y = -objectsDistance * 1;
-    mesh3.position.y = -objectsDistance * 2;
+    // mesh2.position.y = -objectsDistance * 1;
+    mesh3.position.y = -objectsDistance * 2.5;
 
     // mesh1.position.x = 2;
-    mesh2.position.x = -4;
+    // mesh2.position.x = -4;
     mesh3.position.x = 3;
 
-    const sectionMeshes = [mesh2, mesh3];
+    const sectionMeshes = [mesh3];
 
-    scene.add(mesh2, mesh3);
+    scene.add(mesh3);
 
     /**
      * Particles
      */
     // Geometry
-    const particlesCount = 1000;
+    const particlesCount = 800;
     const positions = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount; i++) {
@@ -399,11 +418,11 @@ export default {
 
     // Material
     const particlesMaterial = new THREE.PointsMaterial({
-      color: "#c0a43c",
+      // color: "#c0a43c",
       sizeAttenuation: true,
       size: 0.2,
       transparent: true,
-      map: cross,
+      map: stars,
     });
 
     // Points
@@ -416,7 +435,7 @@ export default {
         value: new THREE.Vector3(),
       },
       radius: {
-        value: 0.5,
+        value: 2.5,
       },
     };
 
@@ -433,6 +452,7 @@ export default {
         `#include <begin_vertex>`,
         `#include <begin_vertex>
 
+        vec3 seg = position - mouse;
         vec3 dir = transformed - mouse;
 
         float dist = length(dir);
@@ -451,11 +471,11 @@ export default {
 
     var plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     var raycaster = new THREE.Raycaster();
-    var mouse = new THREE.Vector2();
+    var mouse = new THREE.Vector3();
+    // console.log(uniforms);
     window.addEventListener("mousemove", (event) => {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
+      mouse.y = (event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
 
       raycaster.ray.intersectPlane(plane, uniforms.mouse.value);
@@ -503,12 +523,12 @@ export default {
       if (newSection != currentSection) {
         currentSection = newSection;
 
-        gsap.to(sectionMeshes[currentSection].rotation, {
-          duration: 1.5,
-          ease: "power2.inOut",
-          x: "+=10",
-          y: "+=7",
-        });
+        // gsap.to(sectionMeshes[currentSection].rotation, {
+        //   duration: 1.5,
+        //   ease: "power2.inOut",
+        //   x: "+=10",
+        //   y: "+=7",
+        // });
       }
     });
 
@@ -519,10 +539,17 @@ export default {
     cursor.x = 0;
     cursor.y = 0;
 
-    window.addEventListener("mousemove", (event) => {
-      cursor.x = event.clientX / sizes.width - 0.5;
-      cursor.y = event.clientY / sizes.height - 0.5;
-    });
+    // window.addEventListener("mousemove", (event) => {
+    //   cursor.x = event.clientX / sizes.width - 0.5;
+    //   cursor.y = event.clientY / sizes.height - 0.5;
+    // });
+
+    document.addEventListener("mousemove", animateParticles);
+
+    function animateParticles(event) {
+      cursor.y = event.clientY / sizes.width - 0.5;
+      cursor.x = event.clientX / sizes.height - 0.5;
+    }
 
     /**
      * Camera
@@ -594,6 +621,10 @@ export default {
 </script>
 
 <style scoped>
+body {
+  overflow: hidden;
+  margin: 0;
+}
 * {
   margin: 0;
   padding: 0;
@@ -612,7 +643,7 @@ export default {
 .section {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: 115vh;
   position: relative;
   font-family: "Cabin", sans-serif;
   color: #ffeded;
