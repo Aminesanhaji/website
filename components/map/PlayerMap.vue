@@ -58,15 +58,12 @@ export default {
 
       // console.log(camera.position);
 
-      // camera.position.x = 1000;
-      // camera.position.z = 20;
-
       scene = new THREE.Scene();
       // scene.add(helper);
       scene.background = new THREE.Color(0x77b5fe);
       // scene.fog = new THREE.Fog(0xffffff, 2, 1000);
 
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.1);
       // hemiLight.color.setHSL(0.6, 1, 0.6);
       // hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
       hemiLight.position.set(0, 50, 0);
@@ -175,7 +172,7 @@ export default {
 
       const loader = new FBXLoader(manager);
       // const path = require("./models/fbx/Walking.fbx");
-      loader.load("/models/fbx/street.fbx", function (object) {
+      loader.load("/models/fbx/street2.fbx", function (object) {
         object.traverse(function (child) {
           if (child.isMesh) {
             child.castShadow = true;
@@ -219,7 +216,7 @@ export default {
 
         const delta = (time - prevTime) / 1000;
 
-        velocity.x -= velocity.x * 10.0 * 0.05; // X : gauche et droite
+        velocity.x -= velocity.x * 10.0 * 0.01; // X : gauche et droite
         velocity.z -= velocity.z * 10.0 * 0.01; // Z : Avancer     Y : Saut
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
@@ -237,11 +234,11 @@ export default {
           velocity.y = Math.max(0, velocity.y);
           canJump = true;
         }
-
+        console.log(velocity.x, velocity.y, velocity.z);
         controls.moveRight(-velocity.x * delta * 2);
         controls.moveForward(-velocity.z * delta * 2);
 
-        controls.getObject().position.y += velocity.y * delta * 20; // new behavior
+        // controls.getObject().position.y += velocity.y * delta * 20; // new behavior
 
         if (controls.getObject().position.y < 10) {
           velocity.y = 0;
