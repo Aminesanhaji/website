@@ -12,9 +12,7 @@
 
 <script>
 import * as THREE from "three";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "dat.gui";
-// import { RedFormat } from "three";
 import gsap from "gsap";
 import CSSRulePlugin from "gsap/CSSRulePlugin";
 gsap.registerPlugin(CSSRulePlugin);

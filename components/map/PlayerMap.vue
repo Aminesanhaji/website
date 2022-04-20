@@ -15,8 +15,6 @@
 
 <script>
 import * as THREE from "three";
-// import gsap from "gsap";
-import Stats from "three/examples/jsm/libs/stats.module.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { TGALoader } from "three/examples/jsm/loaders/TGALoader.js";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
