@@ -47,7 +47,7 @@ export default {
     );
     // Canvas
     const canvas = document.querySelector("canvas.Scrolly");
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas });
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     const loader = new THREE.TextureLoader();
