@@ -37,8 +37,8 @@ import Stats from "three/examples/jsm/libs/stats.module.js";
 export default {
   mounted() {
     var scene = new THREE.Scene();
-    var gridHelper = new THREE.GridHelper(10, 10, 0xaec6ff, 0x7fbba6);
-    scene.add(gridHelper);
+    // var gridHelper = new THREE.GridHelper(10, 10, 0xaec6ff, 0x7fbba6);
+    // scene.add(gridHelper);
     var camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -50,10 +50,13 @@ export default {
     var renderer = new THREE.WebGLRenderer({ canvas: canvas });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    var geometry = new THREE.BoxGeometry();
+    const loader = new THREE.TextureLoader();
+    const globe = loader.load(require("@/assets/globe2.jpg"));
+    var geometry = new THREE.SphereGeometry(2, 32, 16);
     var material = new THREE.MeshBasicMaterial({
-      color: 0x343ab6,
-      wireframe: true,
+      // color: 0x343ab6,
+      wireframe: false,
+      map: globe,
     });
     var cube = new THREE.Mesh(geometry, material);
     cube.position.set(0, 0.5, -10);
@@ -86,12 +89,12 @@ export default {
       start: 0,
       end: 101,
       func: function () {
-        var g = material.color.g;
-        g -= 0.05;
-        if (g <= 0) {
-          g = 1.0;
-        }
-        material.color.g = g;
+        // var g = material.color.g;
+        // g -= 0.05;
+        // if (g <= 0) {
+        //   g = 1.0;
+        // }
+        // material.color.g = g;
       },
     });
     //add an animation that moves the cube through first 40 percent of scroll
@@ -100,7 +103,7 @@ export default {
       end: 40,
       func: function () {
         camera.lookAt(cube.position);
-        camera.position.set(0, 1, 2);
+        camera.position.set(0, 1, 3);
         cube.position.z = lerp(-10, 0, scalePercent(0, 40));
         //console.log(cube.position.z)
       },
@@ -111,7 +114,7 @@ export default {
       end: 60,
       func: function () {
         camera.lookAt(cube.position);
-        camera.position.set(0, 1, 2);
+        camera.position.set(0, 1, 3);
         cube.rotation.z = lerp(0, Math.PI, scalePercent(40, 60));
         //console.log(cube.rotation.z)
       },
@@ -133,7 +136,7 @@ export default {
       end: 101,
       func: function () {
         //auto rotate
-        cube.rotation.x += 0.01;
+        // cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
       },
     });
