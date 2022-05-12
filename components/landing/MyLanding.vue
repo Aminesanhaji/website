@@ -8,7 +8,13 @@
         <a href="/home" class="text-white bg-green-600 inline-block px-8 py-4 rounded-full">Par ici</a>
       </div>
     </div>
-      <div class="w-1/2" id="canvasContainer">
+      <div class="w-1/2 relative" id="canvasContainer">
+        <div class="container flex items-center justify-center absolute z-10 w-full h-screen">
+          <div class="content">
+            <h1>DEVELOPPEUR WEB </h1>
+            <!-- <p>Ici le coeur est grand comme l'égo <br />"Napo"</p> -->
+          </div>
+        </div>
         <canvas id="Globy"></canvas>
       </div>
     </div>
@@ -97,9 +103,13 @@
 import gsap from "gsap";
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+
+import CSSRulePlugin from "gsap/CSSRulePlugin";
+gsap.registerPlugin(CSSRulePlugin);
 export default {
   mounted() {
     this.GlobeLand()
+    this.CssPlugin();
     this.TextLand()
   },
   methods: {
@@ -205,6 +215,32 @@ export default {
       mouse.x = (event.clientX / innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / innerHeight) * 2 + 1;
     });
+    },
+    CssPlugin() {
+      const content = CSSRulePlugin.getRule(".content:before");
+      const h1 = document.querySelector("h1");
+      const p = document.querySelector("p");
+      const tl = gsap.timeline();
+
+      tl.from(content, { delay: 0.5, duration: 4, cssRule: { scaleX: 0 } });
+      tl.to(
+        h1,
+        {
+          duration: 2,
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+          y: "30px",
+        },
+        "-=3"
+      );
+      tl.to(
+        p,
+        {
+          duration: 4,
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+          y: "30px",
+        },
+        "-=2"
+      );
     },
     TextLand() {
       const preload = () => {
@@ -660,7 +696,7 @@ body {
   height: 100vh;
   display: block;
   top: 0;
-  left: 0;
+  left: 8rem;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
@@ -680,5 +716,50 @@ a {
   color: white;
   font-size: 23px;
   text-decoration: none;
+}
+/* .container {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  place-content: center;
+} */
+.content {
+  display: flex;
+  gap: 5em;
+  width: 100%;
+  padding-top: 3em;
+  position: relative;
+  color: bisque;
+}
+
+.content:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid white;
+  transform: scaleX(1);
+}
+
+h1 {
+  font-size: 4em;
+  /* width: 50vw; */
+  line-height: 97%;
+  text-align: center;
+}
+
+h1,
+p {
+  flex-basis: 0;
+  flex-grow: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+p {
+  font-size: 1.3rem;
+  width: 40vw;
 }
 </style>

@@ -336,3 +336,9 @@ export default {
   name: "NuxtTutorial",
 };
 </script>
+
+<style>
+body {
+  @apply overflow-x-hidden;
+}
+</style>
