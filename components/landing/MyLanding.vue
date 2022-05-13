@@ -5,14 +5,23 @@
       </div>
       <div class="playground">
       <div class="bottomPosition">
-        <a href="/home" class="text-white bg-green-600 inline-block px-8 py-4 rounded-full">Par ici</a>
+        <a href="/home" class="text-white inline-block px-8 py-4 rounded-full">Par ici</a>
       </div>
     </div>
       <div class="w-1/2 relative" id="canvasContainer">
         <div class="container flex items-center justify-center absolute z-10 w-full h-screen">
           <div class="content">
-            <h1>DEVELOPPEUR WEB </h1>
-            <!-- <p>Ici le coeur est grand comme l'égo <br />"Napo"</p> -->
+            <!-- <h1> chers visiteurs </h1> -->
+            
+            <div class="actor">
+              <div class="actor__prefix">-</div>
+              <div id="vader" class="actor__content"></div>
+            </div>
+            
+            <div class="actor">
+              <div class="actor__prefix">-</div>
+              <div id="luke" class="actor__content"></div>
+            </div>
           </div>
         </div>
         <canvas id="Globy"></canvas>
@@ -103,13 +112,14 @@
 import gsap from "gsap";
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
-
+import theaterJS from "theaterjs"
 import CSSRulePlugin from "gsap/CSSRulePlugin";
 gsap.registerPlugin(CSSRulePlugin);
 export default {
   mounted() {
     this.GlobeLand()
     this.CssPlugin();
+    this.TheaterFn()
     this.TextLand()
   },
   methods: {
@@ -217,6 +227,7 @@ export default {
     });
     },
     CssPlugin() {
+
       const content = CSSRulePlugin.getRule(".content:before");
       const h1 = document.querySelector("h1");
       const p = document.querySelector("p");
@@ -241,6 +252,31 @@ export default {
         },
         "-=2"
       );
+    },
+    TheaterFn() {
+      var theater = theaterJS();
+
+  theater
+    .on("type:start, erase:start", function() {
+      // add a class to actor's dom element when he starts typing/erasing
+      var actor = theater.getCurrentActor();
+      actor.$element.classList.add("is-typing");
+    })
+    .on("type:end, erase:end", function() {
+      // and then remove it when he's done
+      var actor = theater.getCurrentActor();
+      actor.$element.classList.remove("is-typing");
+    });
+
+  theater.addActor("vader").addActor("luke");
+
+  theater
+    .addScene("vader:Luke...", 200)
+    .addScene("luke:Oui?", 200)
+    .addScene("vader:Je suis", 100, ".", 100, ".", 100, ". ")
+    .addScene("Ton père!")
+    .addScene("luke:Ah!", 400)
+    .addScene(theater.replay);
     },
     TextLand() {
       const preload = () => {
@@ -667,7 +703,9 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Hubballi&family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Cutive");
 @import url("https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json");
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -713,9 +751,11 @@ body {
 }
 
 a {
-  color: white;
+  color: rgb(33, 31, 31);
   font-size: 23px;
   text-decoration: none;
+  background-color: #ffe4c4;
+  font-family: "Cutive", serif;
 }
 /* .container {
   position: absolute;
@@ -727,14 +767,22 @@ a {
 } */
 .content {
   display: flex;
-  gap: 5em;
-  width: 100%;
-  padding-top: 3em;
+  gap: 2em;
+  width: 90%;
+  padding-top: 5em;
   position: relative;
-  color: bisque;
+  color: #ffe4c4;
+  font-size: 2.8rem;
+  display: flex;
+  margin-bottom: 2rem;
+  font-family: "Cutive", serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  flex-direction: column;
+  
 }
 
-.content:before {
+/* .content:before {
   content: "";
   position: absolute;
   top: 0;
@@ -742,7 +790,7 @@ a {
   width: 100%;
   border-bottom: 1px solid white;
   transform: scaleX(1);
-}
+} */
 
 h1 {
   font-size: 4em;
@@ -750,16 +798,39 @@ h1 {
   line-height: 97%;
   text-align: center;
 }
-
-h1,
-p {
-  flex-basis: 0;
-  flex-grow: 1;
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+.actor {
+  font-size: 2.8rem;
+  display: flex;
+  margin-bottom: 2rem;
+}
+.actor:last-of-type {
+  margin-bottom: 6rem;
 }
 
-p {
-  font-size: 1.3rem;
-  width: 40vw;
+.actor__content {
+  flex-grow: 1;
+}
+
+@-webkit-keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.actor__content--typing::after {
+  content: "|";
+  -webkit-animation: blink 500ms infinite;
+          animation: blink 500ms infinite;
 }
 </style>
